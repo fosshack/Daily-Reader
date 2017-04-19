@@ -1,0 +1,132 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0" name="viewport">
+    <title>{{ current_cat}}</title>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda|Fjalla+One" rel="stylesheet">
+    <link href="{% static "css/materialize.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/animate.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/style.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/dataurl.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <style>
+        footer.page-footer {
+            margin: 0;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+            margin-bottom: 0px;
+        }
+    </style>
+</head>
+
+<body class="black-text">
+    <nav class="grey lighten-4" role="navigation">
+        <div class="nav-wrapper container"> <a id="logo-container" href="#" class="brand-logo navhead">Daily Reader</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/home/">Home</a></li>
+                <li><a href="/logout/">Logout</a></li>
+            </ul>
+            <ul id="nav-mobile" class="side-nav">
+                <li><a href="/home/">Home</a></li>
+                <li><a href="/logout/">Logout</a></li>
+            </ul> <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a> </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <h4 class="center">Post a News</h4>
+            <div class="divider"></div>
+            <div class="col m12 s12 center">
+                <form style="padding-top:40px">
+                  <div class="row">
+                    <div class="input-field col s12 m6 offset-m3">
+                        <select id="id_category" name="category" required>
+                        <option value="" selected="selected">---------</option>
+                        <option value="1">Sports</option>
+                        <option value="2">Business</option>
+                        <option value="3">International</option>
+                        <option value="4">Celebrity</option>
+                        <option value="5">Commercial</option>
+                        <option value="6">Regional</option>
+                        </select>
+                        <label for="id_category">Category:</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12 m6">
+                      <label for="id_news_title">Title</label>
+                      <input id="id_news_title" maxlength="100" name="news_title" type="text" required />
+                    </div>
+                    <div class="input-field col s12 m6">
+                      <label for="id_location">Location</label>
+                      <input id="id_location" maxlength="50" name="location" type="text" required />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12 m12">
+                      <label for="id_content_short">Short Content</label>
+                      <textarea class="materialize-textarea" id="id_content_short" name="content_short" required></textarea>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12 m12">
+                      <label for="id_content_short">Long Content</label>
+                      <textarea class="materialize-textarea" id="id_content_long" name="content_long" required></textarea>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12 m6">
+                      <label for="id_content_short">Search Tags</label>
+                      <textarea class="materialize-textarea" id="id_tags" name="tags" required></textarea>
+                    </div>
+                    <div class="file-field input-field col s12 m6" style="padding-top:25px">
+                      <div class="btn">
+                        <span>File</span>
+                        <input type="file" id="id_image" name="image" required>
+                      </div>
+                      <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" required placeholder="Upload an Image">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <button class="btn red" type="submit">Publish !</a>
+                    </div>
+                  </div>
+                </form>
+                <div class="row">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="black" style="z-index:999">
+        <div class="footer-copyright" style="padding-top:5px;">
+            <div class="container white-text" style="margin-top:10px;">© 2017 Daily Reader<a class="grey-text text-lighten-4 right" target="_blank" href="http://www.fosshack.com/">FossHack</a> </div>
+        </div>
+        </div>
+    </footer>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static "js/materialize.min.js" %}"></script>
+    <script src="{% static "js/typed.js" %}"></script>
+    <script src="{% static "js/pace.min.js" %}"></script>
+   <script>
+    $(document).ready(function () {
+        $('select').material_select();
+    });
+    </script>
+</body>
+
+</html>

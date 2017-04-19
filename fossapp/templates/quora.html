@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0" name="viewport">
+    <title>News</title>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda|Fjalla+One" rel="stylesheet">
+    <link href="css/materialize.css" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="css/animate.css" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="css/style.css" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="css/dataurl.css" media="screen,projection" rel="stylesheet" type="text/css">
+    <style>
+        header,
+        main,
+        footer,
+        nav {
+            padding-left: 300px;
+        }
+        
+        @media only screen and (max-width: 992px) {
+            header,
+            main,
+            footer,
+            nav {
+                padding-left: 0;
+            }
+        }
+        
+        @media only screen and (max-device-width: 480px) {
+            #hide {
+                visibility: hidden;
+                display: none;
+            }
+        }
+        
+        .mynews {
+            overflow-y: hidden;
+            max-height: 80px;
+        }
+    </style>
+</head>
+
+<body class="black-text">
+    <nav class="grey lighten-4" role="navigation">
+        <div class="nav-wrapper container"> <a id="logo-container" href="#" class="brand-logo navhead">Daily Reader</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/logout/">Logout</a></li>
+            </ul>
+            <ul id="nav-mobile" class="side-nav">
+                <li><a href="#second">News</a></li>
+                <li><a href="#third">Categories</a></li>
+                <li><a href="#fourth">Top Reporters</a></li>
+                <li><a href="#">Login</a></li>
+            </ul> <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a> </div>
+    </nav>
+    <div id="hide">
+        <ul id="slide-out" class="side-nav fixed">
+            <li>
+                <div class="userView">
+                    <div class="background"> <img src="img/office.jpg"> </div>
+                    <a href="#!user"><img class="circle" src="img/1.jpg"></a> <a href="#!name"><span class="white-text name">John Doe</span></a> <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a> </div>
+            </li>
+            <li><a class="subheader">Interests</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a href="#!"><i class="material-icons">grade</i>Interest 1</a></li>
+            <li><a href="#!"><i class="material-icons">grade</i>Interest 2</a></li>
+            <li><a href="#!"><i class="material-icons">grade</i>Interest 3</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a class="subheader">Feed</a></li>
+            <li><a class="waves-effect" href="#!"><i class="material-icons">save</i>Saved News</a></li>
+            <li><a class="waves-effect" href="#!"><i class="material-icons">mode_edit</i>Edit Profile</a></li>
+        </ul> <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a> <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a> </div>
+    <section id="myhome">
+        <div class="row">
+            <div class="col s12 m8 offset-m3">
+                <div class="row">
+                    <div class="col m12 s12">
+                        <p>Category | Day | Author</p>
+                        <p><b>Lorem ipsum dolor sit amet, ex imperdiet dissentiunt definitiones cum.</b></p>
+                        <p align="justify" class="mynews">Lorem ipsum dolor sit amet, ex imperdiet dissentiunt definitiones cum. Te sed vidit signiferumque. Usu cu ubique expetendis, modo prima mei in, mel erant definiebas ut. Quo ne novum simul accommodare, labore invenire no has. Ut eum erant laboramus similique. Et pro blandit gubergren accommodare, eam cu novum paulo. Sit in nominati consequuntur comprehensam, an tale consulatu sed. Quidam noster eum id, sed te suscipit argumentum. Eum quaestio elaboraret ei. Mel denique epicuri prodesset an, quem rebum movet ius ea. Pro nullam graece accusam ad. Cu eros disputationi mea. Ea deleniti copiosae assentior eos, sit quod mucius ea. Mazim quodsi imperdiet cu cum. Pro ad discere torquatos incorrupte, aperiri meliore torquatos at eum. Ea recteque patrioque nec, magna exerci ut usu, zril scriptorem eam in. His an semper iuvaret verterem. Quot laoreet te duo. Ut legendos volutpat quo, te cum tritani sanctus erroribus. Adhuc iuvaret ei his, at dictas commodo vel, sea cu esse clita doming. Convenire dissentiunt eum eu, ridens vulputate ne quo, at esse scaevola laboramus mea.</p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="row">
+                    <br>
+                    <div class="col m12 s12 grey darke-1">
+                        <p>Category | Day | Author</p>
+                        <p><b>Lorem ipsum dolor sit amet, ex imperdiet dissentiunt definitiones cum.</b></p>
+                        <p align="justify" class="mynews">Lorem ipsum dolor sit amet, ex imperdiet dissentiunt definitiones cum. Te sed vidit signiferumque. Usu cu ubique expetendis, modo prima mei in, mel erant definiebas ut. Quo ne novum simul accommodare, labore invenire no has.</p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="row">
+                    <div class="col m12 s12">
+                        <p>Category | Day | Author</p>
+                        <p><b>Lorem ipsum dolor sit amet, ex imperdiet dissentiunt definitiones cum.</b></p>
+                        <p align="justify" class="mynews">Lorem ipsum dolor sit amet, ex imperdiet dissentiunt definitiones cum. Te sed vidit signiferumque. Usu cu ubique expetendis, modo prima mei in, mel erant definiebas ut. Quo ne novum simul accommodare, labore invenire no has.</p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="row">
+                    <div class="col m12 s12">
+                        <p>Category | Day | Author</p>
+                        <p><b>Lorem ipsum dolor sit amet, ex imperdiet dissentiunt definitiones cum.</b></p>
+                        <p align="justify" class="mynews">Lorem ipsum dolor sit amet, ex imperdiet dissentiunt definitiones cum. Te sed vidit signiferumque. Usu cu ubique expetendis, modo prima mei in, mel erant definiebas ut. Quo ne novum simul accommodare, labore invenire no has.</p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+            </div>
+        </div>
+    </section>
+    <footer class="page-footer black">
+        <div class="footer-copyright black">
+            <div class="container black"> © 2017 Daily Reader <a class="grey-text text-lighten-4 right" target="_blank" href="http://www.fosshack.com/">FossHack</a> </div>
+        </div>
+    </footer>
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/typed.js"></script>
+    <script src="js/pace.min.js"></script>
+    <script type='text/javascript' src='js/wow.js'></script>
+    <script>
+        $(document).ready(function () {
+            $('.slider').slider();
+        });
+        $(function () {
+            $("#title").typed({
+                strings: ["Top News"]
+                , typeSpeed: 50
+                , loop: false
+                , showCursor: false
+            });
+        });
+    </script>
+</body>
+
+</html>

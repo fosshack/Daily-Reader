@@ -1,0 +1,240 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0" name="viewport">
+    <title>News</title>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda|Fjalla+One" rel="stylesheet">
+    <link href="{% static "css/materialize.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="{% static "css/animate.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="{% static "css/style.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <link href="{% static "css/dataurl.css" %}" media="screen,projection" rel="stylesheet" type="text/css">
+    <style>
+        header,
+        main,
+        footer,
+        nav {
+            padding-left: 300px;
+        }
+        
+        @media only screen and (max-width: 992px) {
+            header,
+            main,
+            footer,
+            nav {
+                padding-left: 0;
+            }
+        }
+        
+        @media only screen and (max-device-width: 480px) {
+            #hide {
+                visibility: hidden;
+                display: none;
+            }
+        }
+        
+        .mynews {
+            overflow-y: hidden;
+            max-height: 80px;
+        }
+    </style>
+</head>
+
+<body class="black-text">
+    {% include "nav.html" %}
+    <div id="hide">
+        <ul id="slide-out" class="side-nav fixed">
+            <li>
+                <div class="userView black-text">
+                    <div class="background">
+                        <img src="{% static "img/mybg1.jpg" %}">
+                    </div>
+                    <a href="#!user"><img class="circle" src="{% static "img/1.jpg" %}"></a>
+                    <p class="name">{{ user.first_name }} {{ user.last_name }}</p>
+                    <p class="email">{{ user.email }}</p> </div>
+            </li>
+            <li><a class="subheader">Interests</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a href="/category/8"><i class="material-icons">grade</i>Technology</a></li>
+            <li><a href="/category/12"><i class="material-icons">grade</i>Sports</a></li>
+            <li><a href="/category/4"><i class="material-icons">grade</i>Entertainment</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a class="subheader">Feed</a></li>
+<!--            <li><a class="waves-effect" href="#!"><i class="material-icons">save</i>Saved News</a></li>-->
+            <li><a class="waves-effect" href="#!"><i class="material-icons">mode_edit</i>Edit Profile</a></li>
+        </ul> <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a> <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a> </div>
+    <section id="myhome">
+        <div class="row">
+            <div class="col s12 m8 offset-m3">
+               
+                {% for news in news %}
+                <div id="outer{{news.id}}" onclick="return senddata({{news.id}})">
+                    <p>{{news.category}}</p>
+                    <img src="{{news.image.url}}" class="responsive-img">
+                    <p>{{news.publish_date}}</p>
+                    <p>{{news.published_by.first_name}} {{news.published_by.last_name}}</p>
+                    <p>{{news.published_by.news_title}}</p>
+                    <p>{{news.content_short}}</p>
+                    <div id="inner{{news.id}}">
+                         <p>{{news.content_long}}</p>
+                         <p>Views : {{news.views}}</p>
+                         <p> API link <a href="/news/{{ news.id }}">here</a></p>
+                         <form method="post">
+                             {% csrf_token %}
+                             <input class="btn orange" onclick="return addupvotes(this)" id="{{news.id}}" type="submit" value="Upvotes {{ news.upvotes }}">
+                             <input class="btn orange" onclick="return adddownvotes(this)" id="{{news.id}}" type="submit" value="Downvote {{ news.downvotes }}">
+                         </form>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+
+
+                <div class="divider"></div>
+                <br>
+                <div class="pagination center">
+                    <span class="step-links">
+                        {% if news.has_previous %}
+                            <a href="?page={{ news.previous_page_number }}">Previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ news.number }} of {{ news.paginator.num_pages }}.
+                        </span>
+
+                        {% if news.has_next %}
+                        <a href="?page={{ news.next_page_number }}">Next</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="page-footer black">
+        <div class="footer-copyright black">
+            <div class="container black"> © 2017 Daily Reader <a class="grey-text text-lighten-4 right" target="_blank" href="http://www.fosshack.com/">FossHack</a> </div>
+        </div>
+    </footer>
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static "js/materialize.min.js" %}"></script>
+    <script src="{% static "js/typed.js" %}"></script>
+    <script src="{% static "js/pace.min.js" %}"></script>
+    <script type='text/javascript' src='{% static "js/wow.js" %}'></script>
+    <script>
+       $(document).ready(function () {
+            $('.slider').slider();
+            $(".button-collapse").sideNav();
+                $('.modal').modal();
+        });
+        $(function () {
+            $("#title").typed({
+                strings: ["Top News"]
+                , typeSpeed: 50
+                , loop: false
+                , showCursor: false
+            });
+        });
+</script>
+
+
+<script>
+
+        window.onload = function () {
+        var length = "{{length}}"
+        console.log("count = "+length);
+        for(i=1;i<=length;i++)
+        $("#inner"+i).hide();
+    };
+
+
+
+
+    function senddata(id)
+    {
+        console.log(id);
+       var id = Number(id);
+       var length = "{{ news.count }}";
+       for(i=1;i<=5;i++)
+        $("#inner"+i).hide();
+
+        $("#inner"+id).show();
+
+
+        $.ajax({
+         url: '/views/',
+         type : 'post',
+         dataType: 'json',
+         data: {id: id,csrfmiddlewaretoken: '{{ csrf_token }}'},
+         success: function(data) {
+            console.log("viewd");
+         },
+         failure: function(data) {
+            alert('error');
+        }
+    });//ajax
+
+
+
+
+        return false;
+    }
+
+    function addupvotes(id)
+    {
+        console.log(id.id);
+        var myid = id;
+        $.ajax({
+         url: '/upvote/',
+         type : 'post',
+         dataType: 'json',
+         data: {id: id.id,csrfmiddlewaretoken: '{{ csrf_token }}'},
+         success: function(data) {
+            console.log(data.data);
+              $(myid).prop('value', 'Upvotes '+data.data);
+         },
+         failure: function(data) {
+            alert('error');
+        }
+    });//ajax
+
+
+
+        return false;
+    }
+
+    function adddownvotes(id)
+    {
+        console.log(id);
+        var myid = id;
+
+        $.ajax({
+         url: '/downvote/',
+         type : 'post',
+         dataType: 'json',
+         data: {id: id.id,csrfmiddlewaretoken: '{{ csrf_token }}'},
+         success: function(data) {
+            console.log(data.data);
+              $(myid).prop('value', 'Downvote '+data.data);
+         },
+         failure: function(data) {
+            alert('error');
+        }
+    });//ajax
+
+
+    return false;
+    }
+    </script>
+</body>
+
+</html>

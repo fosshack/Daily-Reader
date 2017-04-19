@@ -1,0 +1,170 @@
+/* Custom Stylesheet */
+
+
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+body {
+ 
+    min-height: 100vh;
+    flex-direction: column;
+    font-family: 'Coda';
+    background-color: white;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.up {
+    font-size: 1.45em;
+}
+
+nav ul a,
+nav .brand-logo {
+    color: #444;
+}
+
+p {
+    line-height: 2rem;
+}
+
+.button-collapse {
+    color: #26a69a;
+}
+
+.parallax-container {
+    min-height: 380px;
+    line-height: 0;
+    height: auto;
+    color: rgba(255, 255, 255, .9);
+}
+
+.parallax-container .section {
+    width: 100%;
+}
+
+@media only screen and (max-width: 992px) {
+    .parallax-container .section {
+        position: absolute;
+        top: 40%;
+    }
+    #index-banner .section {
+        top: 10%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #index-banner .section {
+        top: 0;
+    }
+}
+
+.icon-block {
+    padding: 0 15px;
+}
+
+.icon-block .material-icons {
+    font-size: inherit;
+}
+/*
+
+footer.page-footer {
+    margin: 0;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 50px;
+    margin-bottom: 0px;
+}
+*/
+
+.mybtn {
+    background-color: transparent !important;
+    border: 2px solid #fff !important;
+}
+
+.myimg-circle {
+    height: 150px;
+    width: 150px;
+    border: 2px solid black;
+    border-radius: 50%;
+    margin-top: 40px;
+}
+
+.img-circle {
+    height: 90px;
+    width: 90px;
+    border: 2px solid black;
+    border-radius: 50%;
+    margin-top: 40px;
+}
+
+.upper {
+    text-transform: uppercase;
+}
+
+.caps {
+    text-transform: capitalize;
+}
+
+#title {
+    display: inline;
+    font-size: 3em;
+}
+
+#first,
+#service,
+#project,
+#team,
+#contact {
+    height: 100vh !important
+}
+
+.scroll {
+    overflow-y: auto;
+    max-height: 460px;
+}
+
+.news {
+    overflow-y: hidden;
+    max-height: 150px;
+}
+
+.facebook {
+    background-color: #3b5998 !important;
+}
+
+.linkedin {
+    background-color: #0077B5 !important;
+}
+
+.insta {
+    background-image: url(../img/instabg.jpg) !important;
+    padding: 7px 8px;
+    !important
+}
+
+.navhead {
+    font-family: 'Fjalla One';
+    font-size: 2em;
+    font-weight: bolder;
+}
+
+.mydiv2 {
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+.mydiv {
+    background-repeat: no-repeat;
+    background-size: cover;
+}

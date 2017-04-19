@@ -1,0 +1,178 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0" name="viewport">
+    <title>Sign up - Daily Reader</title>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda|Fjalla+One" rel="stylesheet">
+    <link href="{% static "css/materialize.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/animate.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/style.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/dataurl.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+
+<body class="black-text">
+    {% include "nav.html" %}
+    <div class="container">
+        <div class="row">
+            <div class="col m12 s12">
+                <div class="row">
+                <div class="col m12 s12 center">
+                <h3>Sign up</h3>
+                {% if messages %}
+                {% for message in messages %}
+                <p>{{ message }}</p>
+                {% endfor %}
+                {% endif %}
+                </div>
+                </div>
+                <div class="row">
+                <div class="col m12 s12">
+                <form action="/signup/" enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    <div class="center">
+                    {% if user_form.errors %}
+                    <li class="chip">{{ user_form.non_field_errors }} {{ user_form.username.errors }} {{ user_form.first_name.errors }} {{ user_form.last_name.errors }} {{ user_form.email.errors }} {{ user_form.password.errors }}</li>
+                    {% endif %}
+                    {% if userprofile_form.errors %}
+                    <li class="chip">{{ userprofile_form.non_field_errors }} {{ userprofile_form.aadhar_no.errors }} {{ userprofile_form.contact.errors }} {{ userprofile_form.sex.errors }} {{ userprofile_form.location.errors }} {{ userprofile_form.dp.errors }}</li>
+                    {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="id_username">Username</label> <input id="id_username" maxlength="150" name="username" required="" type="text">
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="id_username">Password</label> <input id="id_password" maxlength="25" name="password" required="" type="password">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="id_first_name">First name</label> <input id="id_first_name" maxlength="30" name="first_name" required="" type="text">
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="id_last_name">Last name</label> <input id="id_last_name" maxlength="30" name="last_name" required="" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="id_email">Email address</label> <input id="id_email" maxlength="254" name="email" required="" type="email">
+                        </div>
+                        <div class="input-field col s6">
+                            <label for="id_aadhar_no">Aadhar number</label> <input id="id_aadhar_no" maxlength="12" name="aadhar_no" required="" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <label for="id_contact">Contact</label> <input id="id_contact" maxlength="10" name="contact" required="" type="text">
+                        </div>
+                        <div class="input-field col s6">
+                            <select id="id_sex" name="sex" required="">
+                                <option selected="selected" value="Sex">
+                                    ---------
+                                </option>
+                                <option value="M">
+                                    Male
+                                </option>
+                                <option value="F">
+                                    Female
+                                </option>
+                                <option value="O">
+                                    Other
+                                </option>
+                            </select>
+                            <label id="id_sex">Sex</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m8 offset-m2">
+                            <input id="id_location" maxlength="100" name="location" required="" type="text">
+                            <label for="id_location">Location</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="file-field input-field s6" style="padding-top:10px">
+                          <div class="btn">
+                            <span>Select Image</span>
+                            <input type="file" id="id_dp" name="dp" required>
+                          </div>
+                          <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="Upload Profile Photo">
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12 center">
+                            <p class="center">Topics you're interested in :</p>
+                            <p class="center">
+                              <input type="checkbox" id="test1" name="interests"/>
+                              <label for="test1">Sports</label>
+                              &nbsp;&nbsp;
+                              <input type="checkbox" id="test2"  name="interests"/>
+                              <label for="test2">Business</label>
+                              &nbsp;&nbsp;
+                              <input type="checkbox" id="test3"  name="interests"/>
+                              <label for="test3">Current Affairs</label>
+                              &nbsp;&nbsp;
+                              <input type="checkbox" id="test4"  name="interests"/>
+                              <label for="test4">Stocks & Shares</label>
+
+
+                            </p>
+                            <p class="center">
+                              <input type="checkbox" id="test5"  name="interests"/>
+                              <label for="test5">International</label>
+                              &nbsp;&nbsp;
+                              <input type="checkbox" id="test6"  name="interests"/>
+                              <label for="test6">Local</label>
+                              &nbsp;&nbsp;
+                              <input type="checkbox" id="test7"  name="interests"/>
+                              <label for="test7">Technology</label>
+                              &nbsp;&nbsp;
+                              <input type="checkbox" id="test8"  name="interests"/>
+                              <label for="test8">Celebrity</label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 center">
+                            <br>
+                            <input class="btn red" type="submit" value="Sign up">
+                        </div>
+                    </div>
+
+                </form>
+                </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <footer class="page-footer black">
+        <div class="footer-copyright black">
+            <div class="container black"> © 2017 Daily Reader <a class="grey-text text-lighten-4 right" target="_blank" href="http://www.fosshack.com/">FossHack</a> </div>
+        </div>
+    </footer>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static "js/materialize.min.js" %}"></script>
+    <script src="{% static "js/typed.js" %}"></script>
+    <script src="{% static "js/pace.min.js" %}"></script>
+    <script>
+    $(document).ready(function () {
+            $('.slider').slider();
+            $(".button-collapse").sideNav();
+                $('.modal').modal();
+        $('select').material_select();
+        });
+    </script>
+
+</body>
+
+</html>
+

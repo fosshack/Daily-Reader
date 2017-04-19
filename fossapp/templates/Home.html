@@ -1,0 +1,265 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0" name="viewport">
+    <title>News</title>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda|Fjalla+One" rel="stylesheet">
+    <link href="{% static "css/materialize.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/animate.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/style.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/loader.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <style>
+     a.cat
+        {
+            color: white;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="black-text">
+   <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+   </div>
+   {% include "nav.html" %}
+    <section id="first">
+        <div class="row">
+            <div class="col s12 m7">
+                <div class="row">
+                    <div class="col s12 m12 center">
+                        <br><div id="title"></div>
+                        <div class="divider"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12">
+                        <div class="slider">
+                            <ul class="slides">
+                                {% for news in top_news %}
+                                <li>
+                                    <a href="/category/{{news.category.id}}/"><img src="{{ news.image.url }}" style="opacity:0.3"></a>
+                                    
+                                    <div class="caption">
+                                        <h4>{{ news.news_title }}</h3>
+                                        <h5 class="light grey-text text-lighten-3">{{ news.category }}</h5>
+                                        <a href="#modal1" onclick="return modalfunction({{news.id}})" class="btn mybtn">Read Now</a>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col m5 s12">
+                <div class="row">
+                    <div class="col s12 m12">
+                        <h5 class="center">Just In</h5>
+                        <div class="divider"></div>
+                    </div>
+                </div>
+                <div class="row scroll">
+                    <div class="col s12 m12">
+                        {% for just in just_in %}
+                        <div class="row">
+                            <div class="col s4 m4"> <img src="{{ just.image.url }}" class="responsive-img" style="margin-top:20px"> </div>
+                            <div class="col s8 m8">
+                                <div class="row">
+                                    <div class="col s12 m12 news">
+                                        <p><b>{{just.news_title}}</b></p>
+                                        <p>{{ just.content_short }}</p><br>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 m4 offset-m4"><a href="#modal1" onclick="return modalfunction({{just.id}})">Read More</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="second">
+        <div class="row">
+            <div class="col s12 m12" style="opacity:0.5">
+                <div class="row">
+                    <div class="col m6 s12">
+                        <div class="mydiv" style="background-image: url('{{top_rated.image.url}}')">
+                            <a href="/category/7" class="cat"><h4 class="mydiv2 center">Top Rated</h4></a>
+                        </div>
+                    </div>
+                    
+                    <div class="col m6 s12">
+                        <div class="mydiv" style="background-image: url('{{must_read.news1.image.url}}')">
+                            <a href="/category/8" class="cat"><h4 class="mydiv2 center">Must Read</h4></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m6 s12">
+                        <div class="mydiv" style="background-image: url('{{ daily_news.image.url }}')">
+                            <a href="/category/9" class="cat"><h4 class="mydiv2 center">Daily</h4></a>
+                        </div>
+                    </div>
+                    <div class="col m6 s12">
+                        <div class="mydiv" style="background-image: url('{{ trending.image.url }}')">
+                        <a href="/category/10" class="cat"><h4 class="mydiv2 center">Trending</h4></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <section id="third">
+        <div class="row">
+            <div class="col m12 s12 center">
+                <h4>Categories</h4> </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row white-text center">
+            <div class="col s6 m3">
+                <div class="card-panel teal"><i class="material-icons" style="font-size:3em">free_breakfast</i><a class="cat" href="/category/1/"><h5>Current Affairs</h5></a>
+                     </div>
+            </div>
+            <div class="col s6 m3">
+                <div class="card-panel orange"><i class="material-icons" style="font-size:3em">public</i><a class="cat" href="/category/10/"><h5>International</h5></a>
+                    </div>
+            </div>
+            <div class="col s6 m3">
+                <div class="card-panel red"><i class="material-icons" style="font-size:3em">person_pin</i><a class="cat" href="/category/4/"><h5>Entertainment</h5></a>
+                 </div>
+            </div>
+            <div class="col s6 m3">
+                <div class="card-panel amber"><i class="material-icons" style="font-size:3em">pool</i><a class="cat" href="/category/12/"><h5>Sports</h5></a>
+                 </div>
+            </div>
+        </div>
+        <div class="row center white-text">
+            <div class="col s6 m3">
+                <div class="card-panel green"><i class="material-icons" style="font-size:3em">android</i><a class="cat" href="/category/8/"><h5>Technology</h5></a>
+                 </div>
+            </div>
+            <div class="col s6 m3">
+                <div class="card-panel black"><i class="material-icons" style="font-size:3em">work</i><a class="cat" href="/category/11/"><h5>Business</h5></a>
+                    </span> </div>
+            </div>
+            <div class="col s6 m3">
+                <div class="card-panel pink"><i class="material-icons" style="font-size:3em">trending_up</i><a class="cat" href="/category/1/"><h5>Shares & Stocks</h5></a>
+                    </span> </div>
+            </div>
+            <div class="col s6 m3">
+                <div class="card-panel blue"><i class="material-icons" style="font-size:3em">home</i><a class="cat" href="/category/7/"><h5>Local</h5></a>
+                    </span> </div>
+            </div>
+        </div>
+    </section>
+    <section id="fourth">
+        <div class="container">
+            <div class="row">
+                <div class="col m12 s12 center">
+                    <h4>Top Reporters</h4> </div>
+            </div>
+            <div class="divider"></div>
+            <div class="row">
+            {% for report in reporters %}
+            
+                <div class="col m3 s6">
+                    <div class="card-panel grey lighten-5 z-depth-1" style="min-height:200px">
+                        <div class="row valign-wrapper">
+                            <div class="col m12 s12"> <img src="{{ report.reporter.dp.url }}" alt="" class="circle responsive-img"></div>
+                        </div>
+                        <div class="row valign-wrapper">
+                            <div class="col m12 s12"> <span class="black-text center">
+                                    <a href="/reporter/report.id/" style="color:black"><h5 class="caps">{{ report.reporter.user.first_name }}</h5></a>
+                                </span> </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </section>
+    <div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4 id="modalnewstitle" class="center"></h4>
+      <p id="modallocation" class="caps"></p>
+      <p id="modalpublish_date"></p>
+      <p id="modalcontent_long" align="justify"></p>
+      <p id="modalpublished_by"></p>
+      <p id="modalviews"></p>
+      <p id="modalexplore"></p>
+    </div>
+    </div>
+    <footer class="page-footer black">
+        <div class="footer-copyright black">
+            <div class="container black"> © 2017 Daily Reader <a class="grey-text text-lighten-4 right" target="_blank" href="http://www.fosshack.com/">FossHack</a> </div>
+        </div>
+    </footer>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static "js/materialize.min.js" %}"></script>
+    <script src="{% static "js/typed.js" %}"></script>
+    <script src="{% static "js/pace.min.js" %}"></script>
+    <script src="{% static "js/loader.js" %}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.slider').slider();
+            $(".button-collapse").sideNav();
+                $('.modal').modal();
+        });
+        $(function () {
+            $("#title").typed({
+                strings: ["Top News"]
+                , typeSpeed: 50
+                , loop: false
+                , showCursor: false
+            });
+        });
+
+        function modalfunction(id)
+        {
+            console.log(id);
+
+            $.ajax({
+         url: '/getnews/',
+         type : 'post',
+         dataType: 'json',
+         data: {id: id,csrfmiddlewaretoken: '{{ csrf_token }}'},
+         success: function(data) {
+           // console.log(data[0].model);
+            var obj = jQuery.parseJSON(data);
+
+            document.getElementById("modalnewstitle").innerHTML=obj[0].fields.news_title;
+            document.getElementById("modallocation").innerHTML=obj[0].fields.location;
+            document.getElementById("modalpublish_date").innerHTML=obj[0].fields.publish_date;
+            document.getElementById("modalcontent_long").innerHTML=obj[0].fields.content_long;
+            document.getElementById("modalviews").innerHTML="Views = "+obj[0].fields.views;
+            var str = "Read More!";
+            var explore = str.link("/category/"+obj[0].fields.category+"/");
+            document.getElementById("modalexplore").innerHTML=explore;
+
+
+         },
+         failure: function(data) {
+            alert('error');
+        }
+    });//ajax
+
+            return false;
+        }
+    </script>
+</body>
+
+</html>

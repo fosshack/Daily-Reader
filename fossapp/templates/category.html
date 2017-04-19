@@ -1,0 +1,204 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0" name="viewport">
+    <title>{{ current_cat}}</title>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda|Fjalla+One" rel="stylesheet">
+    <link href="{% static "css/materialize.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/animate.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/style.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/dataurl.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <style>
+     @media only screen and (max-device-width: 480px) {
+         #mynews
+         {
+             min-height: 300px;
+         }
+        }
+    </style>
+</head>
+
+<body class="black-text">
+    {% include "nav.html" %}
+    <div class="container">
+        <div class="row">
+            <div class="col m12 s12">
+            <h4 class="center">{{ current_cat }}</h4>
+            <div class="divider"></div>
+           <div class="row">
+               {% if  current_cat.id != 8  %}
+               {% for news in news %}
+                <div class="col s12 m6">
+                    <div class="card center">
+                        <div class="card-image caps waves-effect waves-block waves-light"> <img src="{{news.image.url}}" class="responsive-img activator">
+                        </div>
+                        <div class="card-content center caps" id="mynews" style="height:200px;overflow:hidden">
+                            <span class="card-title">{{ news.news_title }}</span> 
+                            <p>{{ news.location }} | {{ news.publish_date }}
+                                <br> {{ news.content_short }}
+                            </p>
+                        </div>
+                        <div class="card-reveal"> 
+                            <span class="card-title grey-text text-darken-4 caps">{{ news.news_title }}<i class="material-icons right">close</i></span>
+                            <p align="justify">{{ news.content_long }}</p>
+                            <p class="collection-item grey">Views : {{ news.views }}</p>
+                            <form method="post">
+                                {% csrf_token %}
+                                 <input class="btn orange" onclick="return addupvotes(this)" id="{{news.id}}" type="submit" value="Upvotes {{ news.upvotes }}">
+                                 <input class="btn orange" onclick="return adddownvotes(this)" id="{{news.id}}" type="submit" value="Downvote {{ news.downvotes }}">
+                            </form>
+                            <p class="collection-item grey caps">By : {{ news.published_by }}</p>
+                        </div>
+                        <div class="card-action"> 
+                            <a href="#" class="activator">Read More</a> 
+                        </div>
+                    </div>
+                </div>
+                 {% endfor %}
+               {% else %}
+               {% for news in news %}
+                <div class="col s12 m6">
+                    <div class="card center">
+                        <div class="card-image caps waves-effect waves-block waves-light"> <img src="{{news.news1.image.url}}" class="responsive-img activator">
+                        </div>
+                        <div class="card-content center caps" id="mynews" style="height:200px;overflow:hidden">
+                            <span class="card-title">{{ news.news1.news_title }}</span>
+                            <p>{{ news.news1.location }} | {{ news.news1.publish_date }}
+                                <br> {{ news.news1.content_short }}
+                            </p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4 caps">{{ news.news1.news_title }}<i class="material-icons right">close</i></span>
+                            <p align="justify">{{ news.news1.content_long }}</p>
+                            <p class="collection-item grey">Views : {{ news.news1.views }}</p>
+                            <form method="post">
+                                {% csrf_token %}
+                                 <input class="btn orange" onclick="return addupvotes(this)" id="{{news.news1.id}}" type="submit" value="Upvotes {{ news.news1.upvotes }}">
+                                 <input class="btn orange" onclick="return adddownvotes(this)" id="{{news.news1.id}}" type="submit" value="Downvote {{ news.news1.downvotes }}">
+                            </form>
+                            <p class="collection-item grey caps">By : {{ news.news1.published_by }}</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#" class="activator">Read More</a>
+                        </div>
+                    </div>
+                </div>
+               {% endfor %}
+               {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="page-footer black">
+        <div class="footer-copyright black">
+            <div class="container black"> © 2017 Daily Reader <a class="grey-text text-lighten-4 right" target="_blank" href="http://www.fosshack.com/">FossHack</a> </div>
+        </div>
+    </footer>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static "js/materialize.min.js" %}"></script>
+    <script src="{% static "js/typed.js" %}"></script>
+    <script src="{% static "js/pace.min.js" %}"></script>
+    <script>
+    $(document).ready(function () {
+            $('.slider').slider();
+            $(".button-collapse").sideNav();
+                $('.modal').modal();
+        });
+    </script>
+    <script>
+    
+    window.onload = function () {
+        var length = {{ news.count }};
+        for(i=1;i<=length;i++)
+        $("#inner"+i).hide();
+    };
+
+
+
+
+    function senddata(id)
+    {
+       var id = Number(id);
+       var length = {{ news.count }};
+       for(i=1;i<=length;i++)
+        $("#inner"+i).hide();
+
+        $("#inner"+id).show();
+
+
+        $.ajax({
+         url: '/views/',
+         type : 'post',
+         dataType: 'json',
+         data: {id: id,csrfmiddlewaretoken: '{{ csrf_token }}'},
+         success: function(data) {
+            console.log("viewd");
+         },
+         failure: function(data) {
+            alert('error');
+        }
+    });//ajax
+
+
+
+
+        return false;
+    }
+
+    function addupvotes(id)
+    {
+        console.log(id.id);
+        var myid = id;
+        $.ajax({
+         url: '/upvote/',
+         type : 'post',
+         dataType: 'json',
+         data: {id: id.id,csrfmiddlewaretoken: '{{ csrf_token }}'},
+         success: function(data) {
+            console.log(data.data);
+              $(myid).prop('value', 'Upvotes '+data.data);
+         },
+         failure: function(data) {
+            alert('error');
+        }
+    });//ajax
+
+
+
+        return false;
+    }
+
+    function adddownvotes(id)
+    {
+        console.log(id);
+        var myid = id;
+
+        $.ajax({
+         url: '/downvote/',
+         type : 'post',
+         dataType: 'json',
+         data: {id: id.id,csrfmiddlewaretoken: '{{ csrf_token }}'},
+         success: function(data) {
+            console.log(data.data);
+              $(myid).prop('value', 'Downvotes '+data.data);
+         },
+         failure: function(data) {
+            alert('error');
+        }
+    });//ajax
+
+
+        return false;
+    }
+</script>
+</body>
+
+</html>

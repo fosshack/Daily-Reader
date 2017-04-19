@@ -1,0 +1,96 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0" name="viewport">
+    <title>{{ current_cat}}</title>
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda|Fjalla+One" rel="stylesheet">
+    <link href="{% static "css/materialize.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/animate.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/style.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="{% static "css/dataurl.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
+    <style>
+        footer.page-footer {
+            margin: 0;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+            margin-bottom: 0px;
+        }
+    
+    </style>
+</head>
+
+<body class="black-text">
+    <nav class="grey lighten-4" role="navigation">
+        <div class="nav-wrapper container"> <a id="logo-container" href="#" class="brand-logo navhead">Daily Reader</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/home/">Home</a></li>
+                <li><a href="/signup/">Sign Up</a></li>
+            </ul>
+            <ul id="nav-mobile" class="side-nav">
+                <li><a href="/home/">Home</a></li>
+                <li><a href="/signup/">Sign Up</a></li>
+            </ul> <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a> </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <h4 class="center">Login</h4>
+            <div class="divider"></div>
+            <div class="col m6 offset-m3 s12 center">
+                
+                <form style="padding-top:40px" method="post" action="/signin/">
+                  {% csrf_token %}
+                    <div class="row">
+                    <div class="input-field col s12 m12">
+                      <input id="username" type="text" class="validate"  name="username" required>
+                      <label for="username">Username</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12 m12">
+                      <input id="password" type="password" class="validate" name="password" required>
+                      <label for="password">Password</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <button class="btn red" type="submit">Let Me In !</button>
+                    </div>
+                  </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+    <footer class="black" style="z-index:999">
+        <div class="footer-copyright" style="padding-top:5px;">
+            <div class="container white-text" style="margin-top:10px;">© 2017 Daily Reader<a class="grey-text text-lighten-4 right" target="_blank" href="http://www.fosshack.com/">FossHack</a> </div>
+        </div>
+        </div>
+    </footer>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static "js/materialize.min.js" %}"></script>
+    <script src="{% static "js/typed.js" %}"></script>
+    <script src="{% static "js/pace.min.js" %}"></script>
+    <script>
+    $(document).ready(function () {
+            $('.slider').slider();
+            $(".button-collapse").sideNav();
+                $('.modal').modal();
+        });
+    </script>
+</body>
+
+</html>
