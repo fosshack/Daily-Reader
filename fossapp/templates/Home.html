@@ -7,8 +7,9 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1.0" name="viewport">
     <title>News</title>
     <!-- CSS  -->
+    <link rel="icon" href="{% static "img/logo.ico" %}"">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Coda|Fjalla+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Coda|Fjalla+One|Black+Ops+One" rel="stylesheet">
     <link href="{% static "css/materialize.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="{% static "css/animate.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="{% static "css/style.css" %}" type="text/css" rel="stylesheet" media="screen,projection" />
@@ -29,12 +30,19 @@
     <div class="loader-section section-right"></div>
    </div>
    {% include "nav.html" %}
+    <div class="row" style="padding-top:10px">
+        <div class="col m4 offset-m4 s12 center card-panel" style="font-family:'Black Ops One';">
+            <h4 id="clock" style="display:inline"></h4>
+            <h4 style="display:inline">|</h4>
+            <h4 id="date" style="display:inline"></h4>
+        </div>
+    </div>
     <section id="first">
         <div class="row">
             <div class="col s12 m7">
                 <div class="row">
                     <div class="col s12 m12 center">
-                        <br><div id="title"></div>
+                        <div id="title"></div>
                         <div class="divider"></div>
                     </div>
                 </div>
@@ -127,37 +135,37 @@
         </div>
         <div class="divider"></div>
         <div class="row white-text center">
-            <div class="col s6 m3">
+            <div class="col s12 m3">
                 <div class="card-panel teal"><i class="material-icons" style="font-size:3em">free_breakfast</i><a class="cat" href="/category/1/"><h5>Current Affairs</h5></a>
                      </div>
             </div>
-            <div class="col s6 m3">
+            <div class="col s12 m3">
                 <div class="card-panel orange"><i class="material-icons" style="font-size:3em">public</i><a class="cat" href="/category/10/"><h5>International</h5></a>
                     </div>
             </div>
-            <div class="col s6 m3">
+            <div class="col s12 m3">
                 <div class="card-panel red"><i class="material-icons" style="font-size:3em">person_pin</i><a class="cat" href="/category/4/"><h5>Entertainment</h5></a>
                  </div>
             </div>
-            <div class="col s6 m3">
+            <div class="col s12 m3">
                 <div class="card-panel amber"><i class="material-icons" style="font-size:3em">pool</i><a class="cat" href="/category/12/"><h5>Sports</h5></a>
                  </div>
             </div>
         </div>
         <div class="row center white-text">
-            <div class="col s6 m3">
+            <div class="col s12 m3">
                 <div class="card-panel green"><i class="material-icons" style="font-size:3em">android</i><a class="cat" href="/category/8/"><h5>Technology</h5></a>
                  </div>
             </div>
-            <div class="col s6 m3">
+            <div class="col s12 m3">
                 <div class="card-panel black"><i class="material-icons" style="font-size:3em">work</i><a class="cat" href="/category/11/"><h5>Business</h5></a>
                     </span> </div>
             </div>
-            <div class="col s6 m3">
+            <div class="col s12 m3">
                 <div class="card-panel pink"><i class="material-icons" style="font-size:3em">trending_up</i><a class="cat" href="/category/1/"><h5>Shares & Stocks</h5></a>
                     </span> </div>
             </div>
-            <div class="col s6 m3">
+            <div class="col s12 m3">
                 <div class="card-panel blue"><i class="material-icons" style="font-size:3em">home</i><a class="cat" href="/category/7/"><h5>Local</h5></a>
                     </span> </div>
             </div>
@@ -176,7 +184,7 @@
                 <div class="col m3 s6">
                     <div class="card-panel grey lighten-5 z-depth-1" style="min-height:200px">
                         <div class="row valign-wrapper">
-                            <div class="col m12 s12"> <img src="{{ report.reporter.dp.url }}" alt="" class="circle responsive-img"></div>
+                            <div class="col m12 s12"> <img src="{{ report.reporter.dp.url }}" alt="" class="circle responsive-img" height="100"></div>
                         </div>
                         <div class="row valign-wrapper">
                             <div class="col m12 s12"> <span class="black-text center">
@@ -226,6 +234,24 @@
                 , loop: false
                 , showCursor: false
             });
+        });
+
+        $(function () {
+            var clockElement = document.getElementById("clock");
+
+            function updateClock(clock) {
+                clock.innerHTML = new Date().toLocaleTimeString();
+            }
+            setInterval(function () {
+                updateClock(clockElement);
+            }, 1000);
+        });
+        $(function () {
+            n = new Date();
+            y = n.getFullYear();
+            m = n.getMonth() + 1;
+            d = n.getDate();
+            document.getElementById("date").innerHTML = d + "-" + m + "-" + y;
         });
 
         function modalfunction(id)

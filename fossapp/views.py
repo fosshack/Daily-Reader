@@ -6,7 +6,6 @@ from django.template.loader import get_template
 from django.template import Context
 from .models import *
 from .forms import *
-import jsonpickle
 from datetime import datetime, date
 from django.apps import *
 from django.core.mail import send_mail, BadHeaderError, EmailMultiAlternatives
@@ -17,6 +16,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.core import serializers
+from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -73,13 +73,15 @@ def myreporters():
         total = 0
         for item in news:
             total = total + item.average
-        average = total/len(news)
+        if len(news):
+            average = total/len(news)
+        else:
+            average = 0
         try:
             reporter = Reporter.objects.get(reporter=user)
         except:
             reporter = Reporter()
-            reporter.reporter = user
-            reporter.save(commit=False)
+        reporter.reporter = user
         reporter.rating = average
         reporter.save()
 
@@ -170,8 +172,22 @@ def downvote(request):
     data = {'data': news.downvotes}
     return JsonResponse(data)
 
-
+@login_required
 def dashboard(request):
+    user = UserProfile.objects.get(user=request.user)
+    if request.POST:
+        formset = NewsForm(request.POST,request.FILES)
+        if formset.is_valid():
+            form = formset.save(commit=False)
+            form.publish_date=datetime.now()
+            form.published_by=user
+            form.save()
+            return render(request, 'dashboard.html', {})
+        else:
+            print(formset.errors)
+
+    else:
+        print("error in outer else")     
     return render(request, 'dashboard.html', {})
 
 
@@ -240,7 +256,7 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/signin/')
 
-@login_required
+
 def newsfeed(request):
     news = News.objects.all().order_by('-publish_date')
     paginator = Paginator(news, 4)  # Show 5 posts per page

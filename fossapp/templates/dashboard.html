@@ -46,7 +46,8 @@
             <h4 class="center">Post a News</h4>
             <div class="divider"></div>
             <div class="col m12 s12 center">
-                <form style="padding-top:40px">
+                <form style="padding-top:40px" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
                   <div class="row">
                     <div class="input-field col s12 m6 offset-m3">
                         <select id="id_category" name="category" required>

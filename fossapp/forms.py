@@ -42,4 +42,4 @@ class NewsForm(ModelForm):
 
     class Meta:
         model = News
-        exclude = ['views','downvotes','upvotes']
+        exclude = ['views','downvotes','upvotes','is_voted','average','publish_date','published_by']
